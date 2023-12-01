@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% if user.is_authenticated  %}
+    <h1> you are already logged in </h1>
+{% else %}
+<div class="container pt-3">
+<fieldset>
+    <legend>Please Login</legend>
+    <form method="post">    
+        {% csrf_token %}
+        {{ form|crispy}}
+        <input type="submit" value="Login">
+    </form>
+</fieldset>
+{% endif %}
+{% endblock  %}   
+</body>
+</html>

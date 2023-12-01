@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>Task Detail</h1>
+        <div class="jumbotron">
+                <h1>{{task.title}}</h1>
+                Description: {{task.description}}
+                Person Responsible: {{task.person_responsible}}
+                Task Owner: {{task.created_by}}
+                Task Created on : {{task.created_on}}
+        </div>
+    </div> 
+<div class= "container">   
+    <a class="btn-warning" href="{% url "taskupdate" object.pk %}">Update</a>
+    <a class="btn-danger" href="{% url "taskdelete" object.pk %}">Delete</a> 
+</div>  
+{% endblock  %}

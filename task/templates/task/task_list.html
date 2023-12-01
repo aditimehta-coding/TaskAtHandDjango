@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    {% if mode == 'assignee' %}
+        <h2>{{request.user}}:Tasks Assigned to You</h2>
+    {% elif mode == 'owner'%}
+        <h2>{{request.user}}:Tasks Assigned by You</h2>
+    {% endif %}
+    
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Change Mode
+        </a>
+      
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="tasklistassignee">Assignee</a>
+          <a class="dropdown-item" href="tasklistowner">Owner</a>
+        </div>
+      </div>
+        <h2 align = "right"> {{mode}} mode</h2>
+        {% for task in object_list %}
+        <div class="container">
+            <li><a href="{% url 'taskdetail' task.id %}">{{task}}</a></li>
+        </div>
+        {% endfor %} 
+</div> 
+<nav aria-label="Page navigation example" class="fixed-bottom"">
+<ul class="pagination">
+    {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">first</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+    <li class="page-item disabled"><a class="page-link" href ="#" >{{ page_obj.number }}/{{ page_obj.paginator.num_pages }}</a></li>
+    {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last</a></li>
+    {% endif %}
+</ul> 
+</nav>
+{% endblock  %}
